@@ -3,6 +3,7 @@ include("vues/v_sommaire.php");
 $action = $_REQUEST['action'];
 $idComptable = $_SESSION['idComptable'];
 switch($action){
+    
 	case 'selectionnerVisiteur' :{
 		$lesVisiteurs = $pdo-> getLesVisiteurs($idComptable);
 		$lesCles = array_keys($lesVisiteurs);
@@ -63,8 +64,6 @@ switch($action){
 	    
 	    if(lesQteFraisValides($lesFraisForfait)){
 	        $pdo->majFraisForfait($idVisiteur,$leMois,$lesFraisForfait);
-	        /*$montant = $pdo->getLeMontantTotal($idVisiteur,$leMois);
-	        $pdo->majFicheFraisMontant($idVisiteur,$leMois,$montant);*/
 	    }
 	    else { 
 	        ajouterErreur("Les valeurs des frais doivent etre numeriques");
@@ -98,8 +97,6 @@ switch($action){
 	    $numAnnee =substr( $leMois,0,4);
 	    $numMois =substr( $leMois,4,2);
 	    
-	    /*$montant = $pdo->getLeMontantTotal($idVisiteur,$leMois);
-	    $pdo->majFicheFraisMontant($idVisiteur,$leMois,$montant);*/
 	    
 	    $lesMois=$pdo->getLesMoisDisponibles($idVisiteur);
 	    $moisASelectionner = $leMois;
@@ -127,8 +124,6 @@ switch($action){
 	    $numMois =substr( $leMois,4,2);
 	    
 	    $pdo->supprimerFraisHorsForfait($idFrais);
-	    /*$montant = $pdo->getLeMontantTotal($idVisiteur,$leMois);
-	     $pdo->majFicheFraisMontant($idVisiteur,$leMois,$montant);*/
 	    
 	    $date = $_REQUEST['date'];
 	    $libelle = $_REQUEST['libelle'];
@@ -141,9 +136,6 @@ switch($action){
 	    }
 	    
 	    $pdo->creeNouveauFraisHorsForfait($idVisiteur,$moisSuivant,$libelle,$date,$leMontant);
-	    /*$montant = $pdo->getLeMontantTotal($idVisiteur,$moisSuivant);
-	     $pdo->majFicheFraisMontant($idVisiteur,$moisSuivant,$montant);*/
-	    
 	    $lesMois=$pdo->getLesMoisDisponibles($idVisiteur);
 	    $moisASelectionner = $leMois;
 	    include("vues/v_listeMois.php");

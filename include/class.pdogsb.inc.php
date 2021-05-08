@@ -11,9 +11,7 @@
  * $monPdoGsb qui contiendra l'unique instance de la classe
  
  * @package default
- * @author Cheri Bibi
- * @version    1.0
- * @link       http://www.php.net/manual/fr/book.pdo.php
+ * @author keldine
  */
 
 class PdoGsb{   		
@@ -62,7 +60,13 @@ class PdoGsb{
 		return $ligne;
 	}
 
-/* Avoir la liste des visiteurs dont s'occupe chaque comptable*/
+
+/**
+ * Retourne la liste des visiteurs dont s'occupe un comptable
+ *
+ * @param type $idComptable
+ * @return les visitueurs sous forme d'un tableau associatif
+ */
 public function getLesVisiteurs($idComptable){
 	$req = "select * from visiteur where idComptable = '$idComptable' order by visiteur.nom";
 	$res = PdoGsb::$monPdo-> query($req);
@@ -70,7 +74,11 @@ public function getLesVisiteurs($idComptable){
 	return $lesVisiteurs;
 }
 
-
+/**
+ * Retourne les informations d'un visiteur
+ * @param type $idVisiteur
+ * @return toute les infos concernant le visiteur sous forme d'un tableau associatif
+ */
 public function getInfosVisiteur($idVisiteur){
     $req = "SELECT * FROM visiteur where id = '$idVisiteur'";
     $rs = PdoGsb::$monPdo->query($req);
@@ -285,7 +293,12 @@ public function getLesMoisDisponibles($idVisiteur){
 	public function supprimerFraisHorsForfait($idFrais){
 	    $req = "delete from lignefraishorsforfait where lignefraishorsforfait.id =$idFrais ";
 	    PdoGsb::$monPdo->exec($req);
-	}
+	} 
+        
+   /**
+    * Refuse le frais hors forfait dont l'id est passé en argument
+    * @param type $idFrais
+    */
 	public function refuserFraisHorsForfait($idFrais){
 	    $req = "update lignefraishorsforfait, fichefrais SET lignefraishorsforfait.libelle = concat('(Refuser)',libelle),
 	    fichefrais.montantValide = montantValide-lignefraishorsforfait.montant where id = $idFrais";
@@ -306,19 +319,25 @@ public function getLesMoisDisponibles($idVisiteur){
 	    $laLigne = $res->fetch();
 	    return $laLigne;
 	}
-/**
- * Modifie l'état et la date de modification d'une fiche de frais
+ /**
+  * Modifie l'état et la date de modification d'une fiche de frais
  
- * Modifie le champ idEtat et met la date de modif à aujourd'hui
- * @param $idVisiteur 
- * @param $mois sous la forme aaaamm
- */
- 
+  * Modifie le champ idEtat et met la date de modif à aujourd'hui
+  * @param type $idVisiteur
+  * @param type $mois
+  * @param type $etat
+  */
 	public function majEtatFicheFrais($idVisiteur,$mois,$etat){
 	    $req = "update ficheFrais set idEtat = '$etat', dateModif = now()
 		where fichefrais.idvisiteur ='$idVisiteur' and fichefrais.mois = '$mois'";
 	    PdoGsb::$monPdo->exec($req);
 	}
+  /**
+   * Retourne le montant total de la fiche de frais du visiteur 
+   * @param type $idVisiteur
+   * @param type $mois
+   * @return la somme total des frais engagé
+   */
 	public function getMontantTotal($idVisiteur,$mois){
 	    $req = "SELECT SUM(fraisforfait.montant*lignefraisforfait.quantite) as montant
                 from fraisforfait join lignefraisforfait on fraisforfait.id = lignefraisforfait.idFraisForfait
@@ -327,11 +346,25 @@ public function getLesMoisDisponibles($idVisiteur){
 	    $laLigne = $res->fetch();
 	    return $laLigne;
 	}
+        
+        /**
+         * Modifie le montant de la fiche de frais lorsque le compable
+         * procède à des modifications
+         * @param type $idVisiteur
+         * @param type $mois
+         * @param type $montant
+         */
 	public function majFicheFraisMontant($idVisiteur,$mois,$montant){
 	    $req = "update ficheFrais set montantValide = '$montant', dateModif = now()
 		where fichefrais.idvisiteur ='$idVisiteur' and fichefrais.mois = '$mois'";
 	    PdoGsb::$monPdo->exec($req);
 	}
+        
+        /**
+         * Retourne les informations des fiches de frais d'un visiteur
+         * @param type $idVisiteur
+         * @return seulement les fiche de frais à l'état validé sous forme d'un tableau
+         */
 	public function getLesFicheFrais($idVisiteur){
 	    $req = "SELECT visiteur.nom as nom, visiteur.prenom as prenom, fichefrais.dateModif as date, fichefrais.idEtat as etat, 
                 fichefrais.montantValide as montantValide, fichefrais.mois as mois FROM fichefrais join visiteur on fichefrais.idVisiteur = visiteur.id
@@ -340,7 +373,12 @@ public function getLesMoisDisponibles($idVisiteur){
 	    $laLigne = $res->fetchAll();
 	    return $laLigne;
 	}
-	
+	/**
+         * Modifie l'etat de la fiche de frais 
+         * la fiche passe de VA à RB
+         * @param type $idVisiteur
+         * @param type $mois
+         */
 	public function remboursement($idVisiteur, $mois){
 	    $req = "update ficheFrais set idEtat = 'RB', dateModif = now()
 		where fichefrais.idvisiteur ='$idVisiteur' and fichefrais.mois = '$mois'";

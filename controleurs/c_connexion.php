@@ -1,4 +1,7 @@
-﻿<?php
+<!--Connexion comptable 
+ login : tcomp1,tcomp2,tcomp3,tcomp4
+ mdp : comp1,comp2,comp3,comp4-->
+<?php
 if(!isset($_REQUEST['action'])){
 	$_REQUEST['action'] = 'demandeConnexion';
 }

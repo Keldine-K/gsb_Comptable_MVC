@@ -3,11 +3,10 @@
  * Fonctions pour l'application GSB
  
  * @package default
- * @author Cheri Bibi
- * @version    1.0
+ * @author keldine
  */
  /**
- * Teste si un quelconque visiteur est connecté
+ * Teste si un quelconque comptable est connecté
  * @return vrai ou faux 
  */
 function estConnecte(){

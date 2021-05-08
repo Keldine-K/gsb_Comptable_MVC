@@ -13,10 +13,10 @@
 				<?php echo $_SESSION['prenom']."  ".$_SESSION['nom'] ?>
 			</li>
            <li class="smenu">
-              <a href="index.php?uc=etatFrais&action=selectionnerVisiteur" title="Validation fiche de frais ">Valider frais</a>
+              <a href="index.php?uc=etatFrais&action=selectionnerVisiteur" title="Validation fiche de frais ">Valider les frais</a>
            </li>
            <li class="smenu">
-              <a href="index.php?uc=suivreFrais&action=selectionnerVisiteur" title="Suivis des fiches de frais">Suivre paiement frais</a>
+              <a href="index.php?uc=suivreFrais&action=selectionnerVisiteur" title="Suivis des fiches de frais">Suivre le paiement des frais</a>
            </li>
  	   <li class="smenu">
               <a href="index.php?uc=connexion&action=deconnexion" title="Se déconnecter">Déconnexion</a>
