@@ -1,5 +1,6 @@
 <?php
 include("vues/v_sommaire.php");
+include ('vues/v_pdf.php');
 $action = $_REQUEST['action'];
 $idComptable = $_SESSION['idComptable'];
 switch($action){
@@ -21,10 +22,11 @@ switch($action){
         }
     }
     case 'pdf' :{
+      
        $idVisiteur = $_SESSION['idVisiteur'];
        $comptable = $_SESSION['nom']." ".$_SESSION['prenom'];
        $visiteur = $pdo-> getInfosVisiteur($idVisiteur);
-       $leMois = $_GET['mois'];
+       $leMois = $_REQUEST['moi'];
        $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur,$leMois);
        $lesFraisForfait= $pdo->getLesFraisForfait($idVisiteur,$leMois);
        $lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($idVisiteur,$leMois);
@@ -35,13 +37,12 @@ switch($action){
        $nbJustificatifs = $lesInfosFicheFrais['nbJustificatifs'];
        $dateModif =  $lesInfosFicheFrais['dateModif'];
        $dateModif =  dateAnglaisVersFrancais($dateModif);
-       include ('vues/v_pdf.php');
        creerPdf($lesFraisForfait, $lesFraisHorsForfait, $numAnnee, $numMois, $libEtat, $montantValide, $nbJustificatifs, $dateModif,$comptable,$visiteur);
     }
     
     case 'rembourser' :{
         $idVisiteur = $_SESSION['idVisiteur'];
-        $leMois = $_GET['mois'];
+        $leMois = $_GET['moi1'];
         $pdo-> remboursement($idVisiteur, $leMois);
         include ('vues/v_confirmRB.php');
     }
