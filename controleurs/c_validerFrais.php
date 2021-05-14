@@ -115,7 +115,7 @@ switch($action){
 	    ?> <meta http-equiv="refresh" content="0; url=index.php?uc=etatFrais&action=selectionnerVisiteur" /> <?php
 	    break;
 	}
-	
+
 	case 'repoterFraisHorsForfait' :{
 	    $idFrais =$_SESSION['id'];
 	    $leMois = $_SESSION['mois'];

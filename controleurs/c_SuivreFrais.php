@@ -28,7 +28,7 @@ switch($action){
        $idVisiteur = $_SESSION['idVisiteur'];
        $comptable = $_SESSION['nom']." ".$_SESSION['prenom'];
        $visiteur = $pdo-> getInfosVisiteur($idVisiteur);
-       $leMois = $_REQUEST['moi'];
+       $leMois = $_REQUEST['mois'];
        $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur,$leMois);
        $lesFraisForfait= $pdo->getLesFraisForfait($idVisiteur,$leMois);
        $lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($idVisiteur,$leMois);
@@ -46,7 +46,7 @@ switch($action){
     
     case 'rembourser' :{
         $idVisiteur = $_SESSION['idVisiteur'];
-        $leMois = $_GET['moi1'];
+        $leMois = $_GET['mois'];
         $pdo-> remboursement($idVisiteur, $leMois);
         include ('vues/v_confirmRB.php');
         break;

@@ -28,8 +28,8 @@
                         <td><?php echo $date ?></td>
                         <td><?php echo $montant ?></td>
                         <td><?php echo $etat?></td>
-                        <td><a href="index.php?uc=suivreFrais&action=rembourser&moi1=<?php echo $mois ?>" role="button">Rembourser</a></td>
-                        <td><a href="index.php?uc=suivreFrais&action=pdf&moi=<?php echo $mois ?>"><img src='images/pdf.png'></a></td>      
+                        <td><a href="index.php?uc=suivreFrais&action=rembourser&mois=<?php echo $mois ?>" role="button">Rembourser</a></td>
+                        <td><a href="index.php?uc=suivreFrais&action=pdf&mois=<?php echo $mois ?>"><img src='images/pdf.png'></a></td>      
                      </tr>
                 <?php } ?>
             </table>

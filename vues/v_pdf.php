@@ -86,7 +86,7 @@ function creerPdf($lesFraisForfait, $lesFraisHorsForfait, $numAnnee, $numMois, $
     $pdf->Ln(); // Retour à la ligne
     
     // Nom du fichier
-    $nom = 'Fiche_Frais_'.$visiteur['nom'].'_'.$visiteur['prenom'].'pdf';
+    $nom = 'Fiche_Frais_'.$visiteur['nom'].'_'.$visiteur['prenom'].'.pdf';
     
     ob_end_clean() ;
     

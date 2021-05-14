@@ -342,7 +342,7 @@ public function getLesMoisDisponibles($idVisiteur){
 	    $req = "SELECT SUM(fraisforfait.montant*lignefraisforfait.quantite) as montant
                 from fraisforfait join lignefraisforfait on fraisforfait.id = lignefraisforfait.idFraisForfait
                  where idVisiteur ='$idVisiteur' and mois ='$mois'";
-	    PdoGsb::$monPdo->exec($req);
+	    $res = PdoGsb::$monPdo->exec($req);
 	    $laLigne = $res->fetch();
 	    return $laLigne;
 	}
